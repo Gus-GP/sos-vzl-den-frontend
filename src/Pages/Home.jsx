@@ -18,7 +18,7 @@ function Home() {
           Welcome!
         </Typography>
         <Typography 
-          variant="h5" 
+          variant="h3" 
           sx={{ 
             mb: 2, 
             fontWeight: 600, 

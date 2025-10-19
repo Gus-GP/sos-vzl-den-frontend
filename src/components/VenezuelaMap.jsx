@@ -1,6 +1,7 @@
 // VenezuelaMap.jsx
 import React, { useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { logEvent } from '../utils/analytics';
 import myJson from '../data/geoBoundaries-VEN-ADM1.json';
 
 // Venezuelan states with approximate centroid coordinates for labeling
@@ -37,6 +38,9 @@ export default function VenezuelaMap({ projects }) {
   const mapContainerRef = useRef(null);
 
   const handleMarkerClick = (event, data) => {
+    // Track map marker click
+    logEvent('Venezuela Map', 'Marker Click', data.projectName);
+
     if (mapContainerRef.current) {
       const rect = mapContainerRef.current.getBoundingClientRect();
       const { clientX, clientY } = event;
@@ -50,8 +54,11 @@ export default function VenezuelaMap({ projects }) {
     }
   };
 
-  const handleLearnMore = (link) => {
+  const handleLearnMore = (link, projectName) => {
     if (link) {
+      // Track Learn More button click
+      logEvent('Venezuela Map', 'Learn More Click', projectName);
+      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
@@ -179,7 +186,7 @@ export default function VenezuelaMap({ projects }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
               {markerData.link && (
                 <button
-                  onClick={() => handleLearnMore(markerData.link)}
+                  onClick={() => handleLearnMore(markerData.link, markerData.projectName)}
                   style={{
                     padding: "8px 15px",
                     cursor: "pointer",

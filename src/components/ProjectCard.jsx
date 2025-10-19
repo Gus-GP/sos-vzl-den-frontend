@@ -1,8 +1,12 @@
 import { Card, CardContent, Typography, CardActionArea } from '@mui/material';
+import { logEvent } from '../utils/analytics';
 
 function ProjectCard({ title, description, date, link }) {
   const handleClick = () => {
     if (link) {
+      // Track project card click
+      logEvent('Project Card', 'Click', title);
+      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };

@@ -1,6 +1,7 @@
 // DenverMap.jsx
 import React, { useState, useRef } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { logEvent } from '../utils/analytics';
 import coloradoCities from '../data/Colorado_City_Boundaries.json';
 
 // Denver Metro Area cities to highlight
@@ -43,6 +44,9 @@ export default function DenverMap({ networkingEvents }) {
   const mapContainerRef = useRef(null);
 
   const handleMarkerClick = (event, data) => {
+    // Track map marker click
+    logEvent('Denver Map', 'Marker Click', data.eventName);
+
     if (mapContainerRef.current) {
       const rect = mapContainerRef.current.getBoundingClientRect();
       const { clientX, clientY } = event;
@@ -56,8 +60,11 @@ export default function DenverMap({ networkingEvents }) {
     }
   };
 
-  const handleLearnMore = (link) => {
+  const handleLearnMore = (link, eventName) => {
     if (link) {
+      // Track Learn More button click
+      logEvent('Denver Map', 'Learn More Click', eventName);
+      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
@@ -201,7 +208,7 @@ export default function DenverMap({ networkingEvents }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
               {markerData.link && (
                 <button
-                  onClick={() => handleLearnMore(markerData.link)}
+                  onClick={() => handleLearnMore(markerData.link, markerData.eventName)}
                   style={{
                     padding: "8px 15px",
                     cursor: "pointer",

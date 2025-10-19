@@ -1,8 +1,12 @@
 import { Card, CardContent, Typography, Chip, Box, CardActionArea } from '@mui/material';
+import { logEvent } from '../utils/analytics';
 
 function NetworkingCard({ title, topic, date, location, link }) {
   const handleClick = () => {
     if (link) {
+      // Track networking card click
+      logEvent('Networking Card', 'Click', `${title} - ${location}`);
+      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
