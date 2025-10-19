@@ -4,16 +4,15 @@ import { logEvent } from '../utils/analytics';
 function ProjectCard({ title, description, date, link }) {
   const handleClick = () => {
     if (link) {
-      // Track project card click
       logEvent('Project Card', 'Click', title);
-      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
 
   return (
     <Card sx={{
-      width: 400,
+      width: '100%',
+      maxWidth: { xs: '100%', sm: 400 },
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
@@ -35,7 +34,7 @@ function ProjectCard({ title, description, date, link }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 2,
+          padding: { xs: 1, sm: 2 },
           '&:hover': {
             backgroundColor: 'transparent',
           },
@@ -46,12 +45,22 @@ function ProjectCard({ title, description, date, link }) {
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
-          gap: 2
+          gap: 2,
+          p: { xs: 2, sm: 3 }
         }}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography 
+            gutterBottom 
+            variant="h5" 
+            component="h2"
+            sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}
+          >
             {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography 
+            variant="body2" 
+            color="textSecondary"
+            sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
+          >
             {date}
           </Typography>
           <Typography 
@@ -59,7 +68,8 @@ function ProjectCard({ title, description, date, link }) {
             sx={{
               overflow: 'visible',
               whiteSpace: 'normal',
-              wordBreak: 'break-word'
+              wordBreak: 'break-word',
+              fontSize: { xs: '0.9rem', sm: '1rem' }
             }}
           >
             {description}

@@ -1,5 +1,5 @@
 // VenezuelaMap.jsx
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import { logEvent } from '../utils/analytics';
 import myJson from '../data/geoBoundaries-VEN-ADM1.json';
@@ -35,10 +35,38 @@ export default function VenezuelaMap({ projects }) {
   const [showInfo, setShowInfo] = useState(false);
   const [infoPosition, setInfoPosition] = useState({ x: 0, y: 0 });
   const [markerData, setMarkerData] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const mapContainerRef = useRef(null);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Responsive map configuration - 30% increase for mobile
+  const mapConfig = isMobile ? {
+    scale: 3900, // 3000 * 1.3
+    width: 800,
+    height: 500,
+    markerSize: 12,
+    fontSize: 15, // Scaled to match 30% zoom
+    strokeWidth: 1.2
+  } : {
+    scale: 3000,
+    width: 1400,
+    height: 700,
+    markerSize: 7,
+    fontSize: 14,
+    strokeWidth: 0.8
+  };
+
   const handleMarkerClick = (event, data) => {
-    // Track map marker click
     logEvent('Venezuela Map', 'Marker Click', data.projectName);
 
     if (mapContainerRef.current) {
@@ -56,9 +84,7 @@ export default function VenezuelaMap({ projects }) {
 
   const handleLearnMore = (link, projectName) => {
     if (link) {
-      // Track Learn More button click
       logEvent('Venezuela Map', 'Learn More Click', projectName);
-      
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
@@ -69,23 +95,23 @@ export default function VenezuelaMap({ projects }) {
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
-      padding: "20px 0",
+      padding: isMobile ? "10px 0" : "20px 0",
       backgroundColor: "#f7f9fc"
     }}>
       <div ref={mapContainerRef} style={{
         position: "relative",
         width: "100%",
-        maxWidth: "1400px",
-        height: "700px",
+        maxWidth: isMobile ? "100%" : "1400px",
+        height: isMobile ? "400px" : "700px",
         boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
         borderRadius: "8px",
         backgroundColor: "#fefefe"
       }}>
         <ComposableMap
-          width={1400}
-          height={700}
+          width={mapConfig.width}
+          height={mapConfig.height}
           projectionConfig={{
-            scale: 3000,
+            scale: mapConfig.scale,
             center: [-66, 7],
           }}
           style={{ width: "100%", height: "100%", backgroundColor: "white" }}
@@ -97,7 +123,7 @@ export default function VenezuelaMap({ projects }) {
                 geography={geo}
                 fill="#d8d8d8"
                 stroke="white"
-                strokeWidth={0.8}
+                strokeWidth={mapConfig.strokeWidth}
                 style={{
                   default: { outline: "none" },
                   hover: {
@@ -111,7 +137,7 @@ export default function VenezuelaMap({ projects }) {
             ))}
           </Geographies>
 
-          {/* Static state labels with improved contrast */}
+          {/* Static state labels - visible on all devices with scaled font */}
           {stateLabels.map(({ name, coordinates }) => (
             <Marker key={name} coordinates={coordinates}>
               <text
@@ -121,7 +147,7 @@ export default function VenezuelaMap({ projects }) {
                   fontFamily: "Arial, sans-serif",
                   fill: "#1a1a2e",
                   fontWeight: "700",
-                  fontSize: 14,
+                  fontSize: mapConfig.fontSize,
                   textShadow: "1px 1px 3px rgba(255,255,255,0.8)",
                   pointerEvents: "none",
                   userSelect: "none"
@@ -147,10 +173,10 @@ export default function VenezuelaMap({ projects }) {
               })}
             >
               <circle
-                r={7}
+                r={mapConfig.markerSize}
                 fill="#2980b9"
                 stroke="#ecf0f1"
-                strokeWidth={2}
+                strokeWidth={isMobile ? 3 : 2}
                 style={{ cursor: "pointer", transition: "fill 0.3s ease" }}
               />
             </Marker>
@@ -160,27 +186,28 @@ export default function VenezuelaMap({ projects }) {
         {showInfo && markerData && (
           <div style={{
             position: "absolute",
-            top: `${infoPosition.y + 10}px`,
-            left: `${infoPosition.x + 10}px`,
+            top: isMobile ? "50%" : `${infoPosition.y + 10}px`,
+            left: isMobile ? "50%" : `${infoPosition.x + 10}px`,
+            transform: isMobile ? "translate(-50%, -50%)" : "none",
             backgroundColor: "white",
-            padding: "15px",
+            padding: isMobile ? "20px" : "15px",
             border: "1px solid #ccc",
             borderRadius: "8px",
             zIndex: 1000,
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            minWidth: "250px",
-            maxWidth: "300px"
+            minWidth: isMobile ? "90%" : "250px",
+            maxWidth: isMobile ? "90%" : "300px"
           }}>
-            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600" }}>
+            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600", fontSize: isMobile ? "16px" : "14px" }}>
               <strong>Location:</strong> {markerData.location}
             </p>
-            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600" }}>
+            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600", fontSize: isMobile ? "16px" : "14px" }}>
               <strong>Project:</strong> {markerData.projectName}
             </p>
-            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600" }}>
+            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600", fontSize: isMobile ? "16px" : "14px" }}>
               <strong>Date:</strong> {markerData.date}
             </p>
-            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600" }}>
+            <p style={{ margin: "5px 0", color: "#2c3e50", fontWeight: "600", fontSize: isMobile ? "16px" : "14px", wordBreak: "break-word" }}>
               <strong>Description:</strong> {markerData.description}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
@@ -188,13 +215,15 @@ export default function VenezuelaMap({ projects }) {
                 <button
                   onClick={() => handleLearnMore(markerData.link, markerData.projectName)}
                   style={{
-                    padding: "8px 15px",
+                    padding: isMobile ? "12px 20px" : "8px 15px",
                     cursor: "pointer",
                     backgroundColor: "#27ae60",
                     color: "white",
                     border: "none",
                     borderRadius: "4px",
-                    width: "100%"
+                    width: "100%",
+                    fontSize: isMobile ? "16px" : "14px",
+                    fontWeight: "600"
                   }}
                 >
                   Learn More
@@ -203,13 +232,15 @@ export default function VenezuelaMap({ projects }) {
               <button
                 onClick={() => setShowInfo(false)}
                 style={{
-                  padding: "8px 15px",
+                  padding: isMobile ? "12px 20px" : "8px 15px",
                   cursor: "pointer",
                   backgroundColor: "#2980b9",
                   color: "white",
                   border: "none",
                   borderRadius: "4px",
-                  width: "100%"
+                  width: "100%",
+                  fontSize: isMobile ? "16px" : "14px",
+                  fontWeight: "600"
                 }}
               >
                 Close

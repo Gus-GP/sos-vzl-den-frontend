@@ -19,7 +19,7 @@ function Networkings() {
             const formattedEvents = results.data
               .filter(row => row.Title)
               .map(row => {
-                let coords = [-104.9903, 39.7392]; // Default to Denver center
+                let coords = [-104.9903, 39.7392];
                 if (row.Coordinates) {
                   try {
                     coords = JSON.parse(row.Coordinates.trim());
@@ -47,14 +47,15 @@ function Networkings() {
   return (
     <>
       {/* Map Section */}
-      <Box sx={{ width: '100%', mb: 6, mt: 4 }}>
+      <Box sx={{ width: '100%', mb: { xs: 4, md: 6 }, mt: { xs: 2, md: 4 }, px: { xs: 1, md: 2 } }}>
         <Typography 
           variant="h3" 
           align="center" 
           sx={{ 
-            mb: 3,
+            mb: { xs: 2, md: 3 },
             fontWeight: 600,
-            color: 'primary.main'
+            color: 'primary.main',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
           }}
         >
           Networking Events Across Denver Metro Area
@@ -63,11 +64,12 @@ function Networkings() {
           variant="body1" 
           align="center" 
           sx={{ 
-            mb: 4,
+            mb: { xs: 3, md: 4 },
             maxWidth: '800px',
             mx: 'auto',
             px: 2,
-            color: 'text.secondary'
+            color: 'text.secondary',
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
           }}
         >
           Join us at our networking events throughout the Denver metropolitan area. Click on any marker to see event details and topics.
@@ -76,14 +78,15 @@ function Networkings() {
       </Box>
       
       {/* Event Cards Section */}
-      <Box sx={{ padding: 4, backgroundColor: '#f5f5f5' }}>
+      <Box sx={{ padding: { xs: 2, md: 4 }, backgroundColor: '#f5f5f5' }}>
         <Typography 
           variant="h3" 
           align="center" 
           sx={{ 
             mb: 2,
             fontWeight: 600,
-            color: 'primary.main'
+            color: 'primary.main',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
           }}
         >
           Networking Events
@@ -92,15 +95,17 @@ function Networkings() {
           variant="body1" 
           align="center" 
           sx={{ 
-            mb: 5,
+            mb: { xs: 3, md: 5 },
             maxWidth: '800px',
             mx: 'auto',
-            color: 'text.secondary'
+            color: 'text.secondary',
+            px: { xs: 1, md: 0 },
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
           }}
         >
           Connect with professionals and community members at our educational networking events covering various topics.
         </Typography>
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container spacing={{ xs: 2, md: 4 }} justifyContent="center">
           {networkingEvents.map((event, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <NetworkingCard

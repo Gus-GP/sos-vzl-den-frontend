@@ -2,8 +2,8 @@ import { Container, Typography, Box, Divider } from '@mui/material';
 
 function Home() {
   return (
-    <Container maxWidth="md" sx={{ textAlign: 'center', py: 6 }}>
-      <Box sx={{ mb: 4 }}>
+    <Container maxWidth="md" sx={{ textAlign: 'center', py: { xs: 3, md: 6 }, px: { xs: 2, md: 3 } }}>
+      <Box sx={{ mb: { xs: 3, md: 4 } }}>
         <Typography 
           variant="h2" 
           component="h1" 
@@ -12,7 +12,8 @@ function Home() {
             fontWeight: 700, 
             letterSpacing: 1, 
             color: '#2980b9', 
-            fontFamily: 'Avenir, Helvetica, Arial, sans-serif' 
+            fontFamily: 'Avenir, Helvetica, Arial, sans-serif',
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
           }}
         >
           Welcome!
@@ -22,7 +23,8 @@ function Home() {
           sx={{ 
             mb: 2, 
             fontWeight: 600, 
-            color: '#34495e' 
+            color: '#34495e',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
           }}
         >
           SOS Venezuela-Denver - 501c(3)
@@ -32,24 +34,27 @@ function Home() {
           color="text.secondary" 
           sx={{ 
             mb: 2, 
-            fontWeight: 400 
+            fontWeight: 400,
+            fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' },
+            px: { xs: 1, md: 0 }
           }}
         >
           We are a Non Profit Organization with 501c3 Status, located in Denver, Colorado.
         </Typography>
       </Box>
 
-      <Divider sx={{ my: 4, borderColor: '#2980b9', borderWidth: 1 }} />
+      <Divider sx={{ my: { xs: 3, md: 4 }, borderColor: '#2980b9', borderWidth: 1 }} />
 
       {/* Mission Section */}
-      <Box sx={{ mb: 5, textAlign: 'left' }}>
+      <Box sx={{ mb: { xs: 4, md: 5 }, textAlign: 'left', px: { xs: 1, md: 0 } }}>
         <Typography 
           variant="h4" 
           sx={{ 
             fontWeight: 700, 
             color: '#2980b9', 
             mb: 2,
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' }
           }}
         >
           Mission
@@ -59,7 +64,7 @@ function Home() {
           paragraph 
           sx={{ 
             color: '#444', 
-            fontSize: '1.15rem', 
+            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
             lineHeight: 1.7,
             textAlign: 'center'
           }}
@@ -68,17 +73,18 @@ function Home() {
         </Typography>
       </Box>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, md: 4 } }} />
 
       {/* Vision Section */}
-      <Box sx={{ mb: 5, textAlign: 'left' }}>
+      <Box sx={{ mb: { xs: 4, md: 5 }, textAlign: 'left', px: { xs: 1, md: 0 } }}>
         <Typography 
           variant="h4" 
           sx={{ 
             fontWeight: 700, 
             color: '#2980b9', 
             mb: 2,
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' }
           }}
         >
           Vision
@@ -88,7 +94,7 @@ function Home() {
           paragraph 
           sx={{ 
             color: '#444', 
-            fontSize: '1.15rem', 
+            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
             lineHeight: 1.7,
             textAlign: 'center'
           }}
@@ -97,17 +103,18 @@ function Home() {
         </Typography>
       </Box>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, md: 4 } }} />
 
       {/* How Section */}
-      <Box sx={{ mb: 5, textAlign: 'left' }}>
+      <Box sx={{ mb: { xs: 4, md: 5 }, textAlign: 'left', px: { xs: 1, md: 0 } }}>
         <Typography 
           variant="h4" 
           sx={{ 
             fontWeight: 700, 
             color: '#2980b9', 
             mb: 2,
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' }
           }}
         >
           How
@@ -117,7 +124,7 @@ function Home() {
           paragraph 
           sx={{ 
             color: '#444', 
-            fontSize: '1.15rem', 
+            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
             lineHeight: 1.7,
             textAlign: 'center'
           }}

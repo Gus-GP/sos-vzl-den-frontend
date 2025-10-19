@@ -47,14 +47,15 @@ function Projects() {
   return (
     <>
       {/* Map Section */}
-      <Box sx={{ width: '100%', mb: 6, mt: 4 }}>
+      <Box sx={{ width: '100%', mb: { xs: 4, md: 6 }, mt: { xs: 2, md: 4 }, px: { xs: 1, md: 2 } }}>
         <Typography 
           variant="h3" 
           align="center" 
           sx={{ 
-            mb: 3,
+            mb: { xs: 2, md: 3 },
             fontWeight: 600,
-            color: 'primary.main'
+            color: 'primary.main',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
           }}
         >
           Project Locations Across Venezuela
@@ -63,11 +64,12 @@ function Projects() {
           variant="body1" 
           align="center" 
           sx={{ 
-            mb: 4,
+            mb: { xs: 3, md: 4 },
             maxWidth: '800px',
             mx: 'auto',
             px: 2,
-            color: 'text.secondary'
+            color: 'text.secondary',
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
           }}
         >
           Explore our humanitarian projects throughout Venezuela. Click on any marker to learn more about the specific initiatives in each region.
@@ -76,14 +78,15 @@ function Projects() {
       </Box>
       
       {/* Project Cards Section */}
-      <Box sx={{ padding: 4, backgroundColor: '#f5f5f5' }}>
+      <Box sx={{ padding: { xs: 2, md: 4 }, backgroundColor: '#f5f5f5' }}>
         <Typography 
           variant="h3" 
           align="center" 
           sx={{ 
             mb: 2,
             fontWeight: 600,
-            color: 'primary.main'
+            color: 'primary.main',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
           }}
         >
           Our Projects
@@ -92,15 +95,17 @@ function Projects() {
           variant="body1" 
           align="center" 
           sx={{ 
-            mb: 5,
+            mb: { xs: 3, md: 5 },
             maxWidth: '800px',
             mx: 'auto',
-            color: 'text.secondary'
+            color: 'text.secondary',
+            px: { xs: 1, md: 0 },
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }
           }}
         >
           Detailed information about each humanitarian campaign and community initiative we support.
         </Typography>
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container spacing={{ xs: 2, md: 4 }} justifyContent="center">
           {projects.map((project, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <ProjectCard

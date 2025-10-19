@@ -28,26 +28,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-   box-sizing: border-box;
-   -webkit-touch-callout: none;
-   -webkit-tap-highlight-color: transparent;
-   overscroll-behavior: contain;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: contain;
 }
-
-@media (max-width: 600px) {
-  :root {
-    font-size: 15px;
-  }
-  body {
-    flex-direction: column;
-    padding: 0 2vw;
-    min-width: 100vw;
-    min-height: 100vh;
-  }
-  h1 {
-    font-size: 2em;
-  }
-
 
 h1 {
   font-size: 3.2em;
@@ -73,6 +58,21 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+@media (max-width: 600px) {
+  :root {
+    font-size: 15px;
+  }
+  body {
+    flex-direction: column;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+  h1 {
+    font-size: 2em;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -84,5 +84,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
 }
